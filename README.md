@@ -8,13 +8,14 @@
 
 # Installation Instructions:
 1. fork & clone this repo
-2. run `npm install` to install dependecies.
+2. run `npm install` to install dependencies.
 3. run `npm run seed` to seed the data.
 
 # Tech Used: 
 - Node.js
 - Mongoose
 - Mongodb
+- Cloudinary API
 
 
 
