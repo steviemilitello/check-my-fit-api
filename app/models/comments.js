@@ -1,16 +1,12 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema(
+const commentsSchema = new mongoose.Schema(
 	{
-		title: {
+		description: {
 			type: String,
 			required: true,
 		},
-		text: {
-			type: String,
-			required: true,
-		},
-		owner: {
+		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true,
@@ -21,4 +17,4 @@ const exampleSchema = new mongoose.Schema(
 	}
 )
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Comment', commentsSchema)
