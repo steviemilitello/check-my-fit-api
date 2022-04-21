@@ -1,6 +1,20 @@
-# Check my Fit API
+# check-my-fit
+- an app to share and comment on outfits
+- here hosts the RESTful routes to be displayed through: add link to client 
 
-An app to share your outfits
 
-more to come soon....
+# ERD
+![layout](./images/ERD.png)
+
+# Installation Instructions:
+1. fork & clone this repo
+2. run `npm install` to install dependecies.
+3. run `npm run seed` to seed the data.
+
+# Tech Used: 
+- Node.js
+- Mongoose
+- Mongodb
+
+
 
