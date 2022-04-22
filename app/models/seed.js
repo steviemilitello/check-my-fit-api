@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Place = require('./place')
+const Outfit = require('./outfits')
 
 const db = require('../../config/db')
 
@@ -32,7 +32,7 @@ mongoose.connect(db, {
     useNewUrlParser: true,
 })
     .then(() => {
-        // then we remove all the places
+        // then we remove all the outfits
         Outfit.deleteMany({ owner: null })
             .then(deletedOutfits => {
                 console.log('deleted outfits', deletedOutfits)
