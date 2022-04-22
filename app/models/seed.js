@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Place = require('./place')
+const Outfit = require('./outfits')
 
 const db = require('../../config/db')
 
@@ -8,22 +8,22 @@ const starterOutfits = [
         description: "cute versatile look for spring",
         date: "2022-04-21",
         img: "https://i.imgur.com/Mkcjobx.jpg",
-        rating: "",
-        tags: ["spring looks", "date night", "casual"],
+        rating: "Hot",
+        tags: [],
     },
     {
         description: "cool look for a cool person",
         date: "2022-04-21",
         img: "https://i.imgur.com/vze52a7.jpg",
-        rating: "",
-        tags: ["punk", "stylish", "trendy"],
+        rating: "Not",
+        tags: [],
     },
     {
         description: "just vibing",
         date: "2022-04-21",
         img: "https://i.imgur.com/mRnJtLu.jpg",
-        rating: "",
-        tags: ["casual", "simple", "chic"],
+        rating: "Hot",
+        tags: [],
     },
 ]
 

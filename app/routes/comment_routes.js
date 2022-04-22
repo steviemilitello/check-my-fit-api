@@ -45,7 +45,7 @@ router.post('/:outfitId', (req, res) => {
             return outfit.save()
         })
         .then(outfit => {
-            // redirectS
+            // redirect
             res.redirect(`/outfits/${outfit.id}`)
         })
         // or show an error if we have one
@@ -58,9 +58,9 @@ router.post('/:outfitId', (req, res) => {
 router.delete('/:id', (req, res) => {
 	// get the game id
 	const outfitId = req.params.id
-	// delete the game
+	// delete the outfit
 	Outfit.findByIdAndRemove(outfitId)
-		.then((game) => {
+		.then((outfit) => {
 			console.log('this is the response', outfit)
 			res.redirect('/outfits')
 		})
