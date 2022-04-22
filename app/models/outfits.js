@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 
+const User = require('./outfits')
+
+const commentSchema = require('./comments')
+
+const { Schema, model } = mongoose
+
 const outfitsSchema = new mongoose.Schema(
 	{
 		description: {
