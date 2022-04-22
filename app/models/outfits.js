@@ -29,6 +29,7 @@ const outfitsSchema = new mongoose.Schema(
 			ref: 'User',
 			required: true,
 		},
+		comments: [commentSchema]
 	},
 	{
 		timestamps: true,
