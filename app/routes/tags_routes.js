@@ -16,7 +16,7 @@ const router = express.Router()
 
 // POST -> create a tag
 // POST /outfits/tag/<outfit_id>
-router.post('/:outfitId', requireToken, removeBlanks, (req, res, next) => {
+router.post('/tags/:outfitId', requireToken, removeBlanks, (req, res, next) => {
 
     const tag = req.body.tag
     const outfitId = req.params.outfitId
