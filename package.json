@@ -1,13 +1,14 @@
 {
-  "name": "express-auth-mongoose-boilerplate",
+  "name": "check-my-fit.app",
   "version": "1.0.0",
-  "description": "Auth boilerplate for mongoose express using token auth",
+  "description": "an app to get your outfit critqued to ensure you go out looking your best & help others with their aesthetic along the way",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node ./app/models/seed.js"
   },
-  "author": "Timm Schoenborn",
+  "author": "Stevie Militello & Kai Smith",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
