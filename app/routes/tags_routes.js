@@ -14,6 +14,34 @@ const router = express.Router()
 
 // ROUTES GO HERE
 
+// INDEX
+// GET /tags
+router.get('/tags', (req, res, next) => {
+    Tag.find()
+        .then((tags) => {
+            // `outfits` will be an array of Mongoose documents
+            // we want to convert each one to a POJO, so we use `.map` to
+            // apply `.toObject` to each one
+            return tags.map((tags) => tags.toObject())
+        })
+        // respond with status 200 and JSON of the tags
+        .then((tags) => res.status(200).json({ tags: tags }))
+        // if an error occurs, pass it to the handler
+        .catch(next)
+})
+
+// SHOW
+// GET /tags/5a7db6c74d55bc51bdf39793
+router.get('/tags/:id', (req, res, next) => {
+    // req.params.id will be set based on the `:id` in the route
+    Tag.findById(req.params.id)
+        .then(handle404)
+        // if `findById` is succesful, respond with 200 and "outfit" JSON
+        .then((tag) => res.status(200).json({ tag: tagId.toObject() }))
+        // if an error occurs, pass it to the handler
+        .catch(next)
+})
+
 // POST -> create a tag
 // POST /outfits/tag/<outfit_id>
 router.post('/tags/:outfitId', requireToken, removeBlanks, (req, res, next) => {
@@ -56,9 +84,5 @@ router.delete('/delete/:outfitId/:tagId', requireToken, async (req, res, next) =
         // if an error occurs, pass it to the handler
         .catch(next)
 })
-
-
-
-
 
 module.exports = router
