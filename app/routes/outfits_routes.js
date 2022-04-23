@@ -98,19 +98,11 @@ router.patch('/outfits/:id', requireToken, removeBlanks, (req, res, next) => {
 router.delete('/outfits/:id', requireToken, async (req, res, next) => {
 	const _id = req.params.id
 	const outfit = await Outfit.findOne({ _id })
-
+	// first, find the outfit by id and remove it
 	await outfit.remove()
-
+	// then, pull the outfit id with any associated tags
 	await Tag.updateMany({ '_id': outfit.tags }, { $pull: { outfits: outfit._id } })
-		// Outfit.findById(req.params.id)
-		// 	.then(handle404)
-		// 	.then((outfit) => {
-		// 		// throw an error if current user doesn't own `outfit`
-		// 		requireOwnership(req, outfit)
-		// 		// delete the outfit ONLY IF the above didn't throw
-		// 		outfit.deleteOne()
-		// 	})
-		// 	// send back 204 and no content if the deletion succeeded
+
 		.then(() => res.sendStatus(204))
 		// if an error occurs, pass it to the handler
 		.catch(next)
