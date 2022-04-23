@@ -36,26 +36,25 @@ router.post('/tags/:outfitId', requireToken, removeBlanks, (req, res, next) => {
         })
 })
 
+// is delete needed?
 // DELETE -> delete a tag
 // DELETE /outfits/tag/<outfit_id>
-router.delete('/delete/:outfitId/:tagId', requireToken, (req, res, next) => {
+router.delete('/delete/:outfitId/:tagId', requireToken, async (req, res, next) => {
     const tagId = req.params.tagId
     const outfitId = req.params.outfitId
 
-    Outfit.updateOne({ _id: outfitId }, { $pull: { tags: tagId } }, function (err, outfit) {
+    const tag = await Tag.findOne({ tagId })
 
-        // .then(outfit => {
-        //     const theTag = outfit.tags.map(tagId)
-        //     // console.log("theTag", outfit.tags.map(tagId))
-        //     requireOwnership(req, outfit)
-        //     theTag.remove()
-        //     // return the saved fruit
-        //     return outfit.save()
+    await tag.remove()
+
+    await Outfit.updateMany({ 'tagId': tag.outfits }, { $pull: { tags: tag._id } })
+
+        // await Outfit.updateOne({ _id: outfitId }, { $pull: { tags: tagId } }, function (err, outfit) {
+
         // })
-        // // send 204 no content
-        console.log("outfit", outfit)
-    })
-
+        .then(() => res.sendStatus(204))
+        // if an error occurs, pass it to the handler
+        .catch(next)
 })
 
 
