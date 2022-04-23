@@ -72,26 +72,35 @@ router.post('/outfits', requireToken, async (req, res, next) => {
 })
 
 
-// UPDATE
-// PATCH /outfits/5a7db6c74d55bc51bdf39793
-router.patch('/outfits/:id', requireToken, removeBlanks, (req, res, next) => {
+// UPDATE with a PUT route
 
+router.put('/outfits/:id', requireToken, removeBlanks, async (req, res) => {
+	const _id = req.params.id
+	const { outfit } = req.body
+	// set an an array of newTags if a tag is added
+	const newTags = outfit.tags || [];
 
-	Outfit.findById(req.params.id)
-		.then(handle404)
-		.then((outfit) => {
-			// pass the `req` object and the Mongoose record to `requireOwnership`
-			// it will throw an error if the current user isn't the owner
-			requireOwnership(req, outfit)
+	// find outfit by id before edit
+	const oldOutfit = await Outfit.findOne({ _id });
+	const oldTags = oldOutfit.tags;
 
-			// pass the result of Mongoose's `.update` to the next `.then`
-			return outfit.updateOne(req.body.outfit)
-		})
-		// if that succeeded, return 204 and no JSON
-		.then(() => res.sendStatus(204))
-		// if an error occurs, pass it to the handler
-		.catch(next)
+	// assign modified body to new outfit
+	Object.assign(oldOutfit, outfit)
+	const newOutfit = await oldOutfit.save()
+
+	// filter throught the array of new/old tags to detect additions/removal
+	const added = newTags.filter(x => oldTags.indexOf(x) === -1)
+	const removed = oldTags.filter(x => newTags.indexOf(x) === -1)
+
+	// console.log('newOutfit', newOutfit)
+	// update the tags associated with the outfit to remove/add the outfit id
+	await Tag.updateMany({ '_id': added }, { $push: { outfits: newOutfit._id } })
+
+	await Tag.updateMany({ '_id': removed }, { $pull: { outfits: newOutfit._id } })
+
+	return res.send(newOutfit)
 })
+
 
 // DESTROY
 // DELETE /outfits/5a7db6c74d55bc51bdf39793
