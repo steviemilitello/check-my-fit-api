@@ -6,6 +6,10 @@ const tagsSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		outfits: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Outfit'
+		}],
 	},
 	{
 		timestamps: true,
