@@ -87,7 +87,6 @@ router.post('/outfits', requireToken, async (req, res, next) => {
 
 })
 
-
 // UPDATE *with PUT route*
 // PUT outfits/5a7db6c74d55bc51bdf3979
 router.put('/outfits/:id', requireToken, removeBlanks, async (req, res) => {
