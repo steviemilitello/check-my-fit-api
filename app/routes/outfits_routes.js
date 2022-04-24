@@ -46,7 +46,7 @@ router.get('/outfits', (req, res, next) => {
 
 // INDEX 
 // GET /outfits/:userId
-router.get('/outfits/:userId', async (req, res, next) => {
+router.get('/outfits/user/:userId', async (req, res, next) => {
 	const userId = req.params.userId
 	// indexing outfits specific to a user for a profile page
 	Outfit.find({ 'owner': userId })
@@ -60,6 +60,7 @@ router.get('/outfits/:userId', async (req, res, next) => {
 		.catch(next)
 })
 
+
 // SHOW
 // GET /outfits/5a7db6c74d55bc51bdf39793
 router.get('/outfits/:id', (req, res, next) => {
@@ -71,6 +72,7 @@ router.get('/outfits/:id', (req, res, next) => {
 		// if an error occurs, pass it to the handler
 		.catch(next)
 })
+
 
 // CREATE
 // POST /outfits
