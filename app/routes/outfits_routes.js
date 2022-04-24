@@ -44,6 +44,22 @@ router.get('/outfits', (req, res, next) => {
 		.catch(next)
 })
 
+// INDEX 
+// GET /outfits/:userId
+router.get('/outfits/:userId', async (req, res, next) => {
+	const userId = req.params.userId
+	// indexing outfits specific to a user for a profile page
+	Outfit.find({ 'owner': userId })
+		.then((outfits) => {
+
+			return outfits.map((outfits) => outfits.toObject())
+		})
+		// respond with status 200 and JSON of the outfits
+		.then((outfits) => res.status(200).json({ outfits: outfits }))
+		// if an error occurs, pass it to the handler
+		.catch(next)
+})
+
 // SHOW
 // GET /outfits/5a7db6c74d55bc51bdf39793
 router.get('/outfits/:id', (req, res, next) => {
@@ -71,9 +87,8 @@ router.post('/outfits', requireToken, async (req, res, next) => {
 
 })
 
-
-// UPDATE with a PUT route
-
+// UPDATE *with PUT route*
+// PUT outfits/5a7db6c74d55bc51bdf3979
 router.put('/outfits/:id', requireToken, removeBlanks, async (req, res) => {
 	const _id = req.params.id
 	const { outfit } = req.body
