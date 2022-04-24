@@ -32,6 +32,8 @@ const router = express.Router()
 // GET /outfits
 router.get('/outfits', (req, res, next) => {
 	Outfit.find()
+		.populate('owner')
+		.populate('tags')
 		.then((outfits) => {
 			// `outfits` will be an array of Mongoose documents
 			// we want to convert each one to a POJO, so we use `.map` to
@@ -50,6 +52,8 @@ router.get('/outfits/user/:userId', async (req, res, next) => {
 	const userId = req.params.userId
 	// indexing outfits specific to a user for a profile page
 	Outfit.find({ 'owner': userId })
+		.populate('owner')
+		.populate('tags')
 		.then((outfits) => {
 
 			return outfits.map((outfits) => outfits.toObject())
@@ -66,6 +70,8 @@ router.get('/outfits/user/:userId', async (req, res, next) => {
 router.get('/outfits/:id', (req, res, next) => {
 	// req.params.id will be set based on the `:id` in the route
 	Outfit.findById(req.params.id)
+		.populate('owner')
+		.populate('tags')
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "outfit" JSON
 		.then((outfit) => res.status(200).json({ outfit: outfit.toObject() }))
