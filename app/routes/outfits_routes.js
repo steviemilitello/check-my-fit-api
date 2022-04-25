@@ -47,7 +47,7 @@ router.get('/outfits', (req, res, next) => {
 })
 
 // INDEX 
-// GET /outfits/:userId
+// GET /outfits/user/:userId
 router.get('/outfits/user/:userId', async (req, res, next) => {
 	const userId = req.params.userId
 	// indexing outfits specific to a user for a profile page
