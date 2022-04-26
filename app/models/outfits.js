@@ -22,6 +22,14 @@ const outfitsSchema = new mongoose.Schema(
 		rating: {
 			type: String, enum: ["Hot", "Not"]
 		},
+		hotVotes: {
+			type: Number,
+			default: 0
+		},
+		notVotes: {
+			type: Number,
+			default: 0
+		},
 		tags: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Tag'
