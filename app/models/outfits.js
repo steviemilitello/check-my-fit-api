@@ -20,7 +20,8 @@ const outfitsSchema = new mongoose.Schema(
 			required: true,
 		},
 		rating: {
-			type: String, enum: ["Hot", "Not"]
+			type: String, enum: ["Hot", "Not"],
+			default: "Hot"
 		},
 		hotVotes: {
 			type: Number,
