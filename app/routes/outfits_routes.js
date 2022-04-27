@@ -87,9 +87,10 @@ router.post('/outfits', requireToken, async (req, res, next) => {
 	req.body.outfit.owner = req.user.id
 	// set filled in fields to the body of the outfit
 	const { outfit } = req.body
-	console.log("the fittttT", outfit)
+	console.log(outfit)
 	// first, we'll make a new outfit
 	const newOutfit = await Outfit.create(outfit);
+	// console.log("newOutfit._id", newOutfit._id)
 	// then, we'll update any tags associated with the outfit to show it's relationship to the outfit
 	await Tag.updateMany({ '_id': newOutfit.tags }, { $push: { outfits: newOutfit._id } })
 	return res.send(newOutfit)
