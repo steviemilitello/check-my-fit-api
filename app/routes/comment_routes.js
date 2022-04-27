@@ -28,7 +28,7 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // POST -> to create a comment
-router.post('/:outfitId', (req, res) => {
+router.post('outfits/:outfitId', (req, res) => {
     const outfitId = req.params.outfitId
     console.log('first comment body', req.body)
     
@@ -55,19 +55,35 @@ router.post('/:outfitId', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
-	// get the game id
-	const outfitId = req.params.id
-	// delete the outfit
-	Outfit.findByIdAndRemove(outfitId)
-		.then((outfit) => {
-			console.log('this is the response', outfit)
-			res.redirect('/outfits')
-		})
-		.catch((error) => {
-			console.log(error)
-			res.json({ error })
-		})
+// DELETE -> to delete a comment
+router.delete('outfits/:outfitId/:commId', (req, res) => {
+    // first we want to parse out our ids
+    const outfitId = req.params.outfitId
+    const commId = req.params.commId
+    // then we'll find the game
+    Outfit.findById(outfitId)
+        .then(outfit => {
+            const theComment = outfit.comments.id(commId)
+            // only delete the comment if the user who is logged in is the comment's author
+            if ( theComment.author == req.user.id) {
+                // then we'll delete the comment
+                theComment.remove()
+                // return the saved game
+                return game.save()
+            } else {
+                return
+            }
+
+        })
+        .then(outfit => {
+            // redirect to the game show page
+            res.redirect(`/outfits/${outfitId}`)
+        })
+        .catch(error => {
+            // catch any errors
+            console.log(error)
+            res.send(error)
+        })
 })
 
-module.exports = app
+module.exports = router
