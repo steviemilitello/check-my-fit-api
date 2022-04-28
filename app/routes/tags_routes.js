@@ -54,7 +54,6 @@ router.get('/tags/vintage', async (req, res, next) => {
 
 })
 // SHOW
-
 router.get('/tags/:tagId', async (req, res, next) => {
     Outfit.find({ tags: req.params.tagId })
         .populate('owner')
