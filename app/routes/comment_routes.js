@@ -6,8 +6,6 @@ const passport = require('passport')
 // pull in Mongoose model for outfits
 const Outfit = require('../models/outfits')
 
-
-const Outfit = require('../models/outfits')
 const customErrors = require('../../lib/custom_errors')
 
 const handle404 = customErrors.handle404
@@ -26,26 +24,26 @@ const router = express.Router()
 
 // POST -> to create a comment
 
-router.post('comments/:outfitId', requireToken, (req, res) => {
+router.post('/comments/:outfitId', requireToken, (req, res) => {
     console.log("***********HITTTTT COMMENT ROUTEE********")
-  
-    const outfitId = req.params.outfitId
 
+    const outfitId = req.params.outfitId
 
     // we'll adjust req.body to include an author
     // the author's id will be the logged in user's id
-    req.body.comment.author = req.user.id
+    req.body.comment.author = req.user._id
     console.log('updated comment body', req.body)
-      
+
     // we'll find the outfit with the outfitId
     Outfit.findById(outfitId)
 
         .then(outfit => {
             // then we'll send req.body to the comments array
-            outfit.comments.push(req.body)
+            outfit.comments.push(req.body.comment)
             // save the outfit
             return outfit.save()
         })
+        .then(() => res.sendStatus(204))
         // or show an error if we have one
         .catch(error => {
             console.log(error)
@@ -54,7 +52,7 @@ router.post('comments/:outfitId', requireToken, (req, res) => {
 })
 
 // DELETE -> to delete a comment
-router.delete('comments/:outfitId/:commId', (req, res) => {
+router.delete('/comments/:outfitId/:commId', (req, res) => {
 
     // first we want to parse out our ids
     const outfitId = req.params.outfitId
