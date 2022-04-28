@@ -24,7 +24,6 @@ const router = express.Router()
 // POST -> to create a comment
 
 router.post('/comments/:outfitId', requireToken, (req, res) => {
-    console.log("***********HITTTTT COMMENT ROUTEE********")
 
     const outfitId = req.params.outfitId
 
@@ -51,7 +50,7 @@ router.post('/comments/:outfitId', requireToken, (req, res) => {
 })
 
 // DELETE -> to delete a comment
-router.delete('/comments/:outfitId/:commId', (req, res) => {
+router.delete('/comments/:outfitId/:commId', requireToken, (req, res) => {
 
     // first we want to parse out our ids
     const outfitId = req.params.outfitId
@@ -65,11 +64,12 @@ router.delete('/comments/:outfitId/:commId', (req, res) => {
                 // then we'll delete the comment
                 theComment.remove()
                 // return the saved game
-                return comment.save()
+                return outfit.save()
             } else {
                 return
             }
         })
+        .then(() => res.sendStatus(204))
         .catch(error => {
             // catch any errors
             console.log(error)
