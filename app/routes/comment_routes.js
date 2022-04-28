@@ -4,10 +4,9 @@ const express = require('express')
 const passport = require('passport')
 
 // pull in Mongoose model for outfits
-const Outfit = require('../models/outfits')
-
 
 const Outfit = require('../models/outfits')
+
 const customErrors = require('../../lib/custom_errors')
 
 const handle404 = customErrors.handle404
@@ -26,11 +25,10 @@ const router = express.Router()
 
 // POST -> to create a comment
 
-router.post('comments/:outfitId', requireToken, (req, res) => {
+router.post('/comments/:outfitId', requireToken, (req, res) => {
     console.log("***********HITTTTT COMMENT ROUTEE********")
   
     const outfitId = req.params.outfitId
-
 
     // we'll adjust req.body to include an author
     // the author's id will be the logged in user's id
@@ -54,7 +52,7 @@ router.post('comments/:outfitId', requireToken, (req, res) => {
 })
 
 // DELETE -> to delete a comment
-router.delete('comments/:outfitId/:commId', (req, res) => {
+router.delete('/comments/:outfitId/:commId', (req, res) => {
 
     // first we want to parse out our ids
     const outfitId = req.params.outfitId

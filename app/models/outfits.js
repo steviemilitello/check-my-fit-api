@@ -4,6 +4,8 @@ const User = require('./outfits')
 
 const commentSchema = require('./comments')
 
+const voteSchema = require('./votes')
+
 const { Schema, model } = mongoose
 
 const outfitsSchema = new mongoose.Schema(
@@ -23,14 +25,6 @@ const outfitsSchema = new mongoose.Schema(
 			type: String, enum: ["Hot", "Not"],
 			default: "Hot"
 		},
-		hotVotes: {
-			type: Number,
-			default: 0
-		},
-		notVotes: {
-			type: Number,
-			default: 0
-		},
 		tags: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Tag'
@@ -39,7 +33,8 @@ const outfitsSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 		},
-		comments: [commentSchema]
+		comments: [commentSchema],
+		votes: [voteSchema]
 	},
 	{
 		timestamps: true,
