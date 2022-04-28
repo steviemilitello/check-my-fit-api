@@ -20,6 +20,7 @@ const requireOwnership = customErrors.requireOwnership
 // this is middleware that will remove blank fields from `req.body`, e.g.
 // { example: { title: '', text: 'foo' } } -> { example: { text: 'foo' } }
 const removeBlanks = require('../../lib/remove_blank_fields')
+const user = require('../models/user')
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
 // it will also set `req.user`
@@ -72,9 +73,13 @@ router.get('/outfits/:id', (req, res, next) => {
 	Outfit.findById(req.params.id)
 		.populate('owner')
 		.populate('tags')
+		.populate('comments')
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "outfit" JSON
-		.then((outfit) => res.status(200).json({ outfit: outfit.toObject() }))
+		.then((outfit) => {
+
+			return res.status(200).json({ outfit: outfit.toObject() })
+		})
 		// if an error occurs, pass it to the handler
 		.catch(next)
 })
