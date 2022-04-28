@@ -31,6 +31,8 @@ router.post('/comments/:outfitId', requireToken, (req, res) => {
     // we'll adjust req.body to include an author
     // the author's id will be the logged in user's id
     req.body.comment.author = req.user._id
+    req.body.comment.name = req.user.email.split('@')[0]
+
     console.log('updated comment body', req.body)
 
     // we'll find the outfit with the outfitId
