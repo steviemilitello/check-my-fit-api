@@ -13,7 +13,6 @@ const router = express.Router()
 
 // POST -> to create a vote
 router.post('/vote/:outfitId', requireToken, (req, res) => {
-    console.log("HIT***************");
     const outfitId = req.params.outfitId
     req.body.vote.voter = req.user._id
     console.log('updated comment body', req.body)
