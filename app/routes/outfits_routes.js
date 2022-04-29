@@ -122,7 +122,6 @@ router.put('/outfits/:id', requireToken, removeBlanks, async (req, res) => {
 	const added = newTags.filter(x => oldTags.indexOf(x) === -1)
 	const removed = oldTags.filter(x => newTags.indexOf(x) === -1)
 
-	// console.log('newOutfit', newOutfit)
 	// update the tags associated with the outfit to remove/add the outfit id
 	await Tag.updateMany({ '_id': added }, { $push: { outfits: newOutfit._id } })
 

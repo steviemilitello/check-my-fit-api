@@ -31,29 +31,6 @@ router.get('/tags', (req, res, next) => {
 })
 
 // SHOW
-// GET /tags/5a7db6c74d55bc51bdf39793
-// router.get('/tags/:id', (req, res, next) => {
-//     // req.params.id will be set based on the `:id` in the route
-//     Tag.findById(req.params.id)
-//         .then(handle404)
-//         // if `findById` is succesful, respond with 200 and "outfit" JSON
-//         .then((tag) => res.status(200).json({ tag: tag.toObject() }))
-//         // if an error occurs, pass it to the handler
-//         .catch(next)
-// })
-
-// SHOW
-// GET /tags/vintage
-router.get('/tags/vintage', async (req, res, next) => {
-
-    const tag = await Tag.find({ category: 'vintage' }).populate('outfits')
-
-    // console.log(tag[0].outfits)
-
-    res.status(200).json({ outfits: tag[0].outfits })
-
-})
-// SHOW
 router.get('/tags/:tagId', async (req, res, next) => {
     Outfit.find({ tags: req.params.tagId })
         .populate('owner')
