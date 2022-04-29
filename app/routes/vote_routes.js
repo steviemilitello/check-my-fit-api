@@ -13,22 +13,20 @@ const router = express.Router()
 
 // POST -> to create a vote
 router.post('/vote/:outfitId', requireToken, (req, res) => {
-
+    console.log("HIT***************");
     const outfitId = req.params.outfitId
-
     req.body.vote.voter = req.user._id
-
     console.log('updated comment body', req.body)
-
     // we'll find the outfit with the outfitId
     Outfit.findById(outfitId)
 
         .then(outfit => {
             // then we'll send req.body to the comments array
-            outfit.votes.push(req.body.vote.vote)
-            // save the outfit
-            return res.status(200).json({ outfit: outfit.toObject() })
+
+            outfit.votes.push(req.body.vote)
+            return outfit.save()
         })
+        .then(() => res.sendStatus(204))
         .catch(error => {
             console.log(error)
             res.send(error)
