@@ -22,11 +22,9 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // POST -> to create a comment
-
 router.post('/comments/:outfitId', requireToken, (req, res) => {
 
     const outfitId = req.params.outfitId
-
     // we'll adjust req.body to include an author
     // the author's id will be the logged in user's id
     req.body.comment.author = req.user._id
@@ -78,5 +76,6 @@ router.delete('/comments/:outfitId/:commId', requireToken, (req, res) => {
             res.send(error)
         })
 })
+
 
 module.exports = router

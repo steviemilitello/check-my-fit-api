@@ -3,9 +3,9 @@ const mongoose = require('mongoose')
 const voteSchema = new mongoose.Schema({
     vote: {
         type: String, enum: ["Hot", "Not"],
-		default: "Hot"
+        default: "Hot"
     },
-    author: {
+    voter: {
         type: mongoose.Schema.Types.ObjectID,
         ref: 'User',
         required: true
