@@ -32,7 +32,7 @@ const router = express.Router()
 // INDEX
 // GET /outfits
 router.get('/outfits', (req, res, next) => {
-	Outfit.find()
+	Outfit.find().sort( { date : -1 } )
 		.populate('owner')
 		.populate('tags')
 		.then((outfits) => {
