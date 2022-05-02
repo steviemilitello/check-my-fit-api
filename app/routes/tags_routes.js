@@ -42,7 +42,7 @@ router.get('/tags/:tagId', async (req, res, next) => {
 })
 
 // POST -> create a tag
-// POST /outfits/tag/<outfit_id>
+// POST /tags/<outfit_id>
 router.post('/tags/:outfitId', requireToken, removeBlanks, (req, res, next) => {
 
     const tag = req.body.tag
