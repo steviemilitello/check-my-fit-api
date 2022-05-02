@@ -32,13 +32,14 @@ const router = express.Router()
 // INDEX
 // GET /outfits
 router.get('/outfits', (req, res, next) => {
-	Outfit.find()
+	Outfit.find().sort({ date: -1 })
 		.populate('owner')
 		.populate('tags')
 		.then((outfits) => {
 			// `outfits` will be an array of Mongoose documents
 			// we want to convert each one to a POJO, so we use `.map` to
 			// apply `.toObject` to each one
+			// console.log('outfits', outfits)
 			return outfits.map((outfits) => outfits.toObject())
 		})
 		// respond with status 200 and JSON of the outfits
@@ -77,6 +78,7 @@ router.get('/outfits/:id', (req, res, next) => {
 		.then(handle404)
 		// if `findById` is succesful, respond with 200 and "outfit" JSON
 		.then((outfit) => {
+			// console.log('outfit', outfit)
 
 			return res.status(200).json({ outfit: outfit.toObject() })
 		})
@@ -92,7 +94,6 @@ router.post('/outfits', requireToken, async (req, res, next) => {
 	req.body.outfit.owner = req.user.id
 	// set filled in fields to the body of the outfit
 	const { outfit } = req.body
-	console.log(outfit)
 	// first, we'll make a new outfit
 	const newOutfit = await Outfit.create(outfit);
 	// console.log("newOutfit._id", newOutfit._id)
@@ -111,12 +112,13 @@ router.put('/outfits/:id', requireToken, removeBlanks, async (req, res) => {
 	const newTags = outfit.tags || [];
 
 	// find outfit by id before edit
-	const oldOutfit = await Outfit.findOne({ _id });
+	const oldOutfit = await Outfit.findById(_id);
 	const oldTags = oldOutfit.tags;
 
-	// assign modified body to new outfit
-	Object.assign(oldOutfit, outfit)
-	const newOutfit = await oldOutfit.save()
+
+	let newOutfit = await Outfit.findOneAndUpdate({ _id: _id }, outfit, {
+		returnOriginal: false
+	});
 
 	// filter throught the array of new/old tags to detect additions/removal
 	const added = newTags.filter(x => oldTags.indexOf(x) === -1)
