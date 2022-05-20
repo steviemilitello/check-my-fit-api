@@ -33,7 +33,7 @@
 
 <h1>:dress: Description</h1>
 
-<p>Check my Fit is an app where you can share your Outfits and have them rated. As a user you can add your outfits, add tags to your outfits, edit and delete your outfits, view other user's outfits, rate other user's outfits hot or not and add and delete comments on a outfit's page.</p>
+<p>Check my Fit is an app where you can share your outfits and have them rated. As a user you can add your outfits, add tags to your outfits, edit and delete your outfits, view other user's outfits, rate other user's outfits hot or not and add and delete comments on a outfit's page.</p>
 
 <h2> :atom_symbol: Getting Started </h2>
 
@@ -68,13 +68,32 @@
 </details>
 <p></p>
 
-# ERD
-![layout](./images/ERD.png)
+<p></p>
+<h1>:framed_picture: Screenshots</h1>
 
-# Tech Used: 
-- Node.js
-- Mongoose
-- Mongodb
+<details>
+<summary> :bar_chart: ERD</summary><br />
+
+| Description | Screenshot |
+|------------ | ------------|
+| <h3 align="center">ERD</h3> | <img src="https://i.imgur.com/FTpB01O.png" width="700"/> |
+
+</details>
+<p></p>
+
+<h1>:computer: Technologies Used</h1>
+
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) 
+![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![ExpressJS](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+
+<h1>:fast_forward: Next Steps</h1>
+
+<ul>
+    <li>See <a href="https://github.com/steviemilitello/check-my-fit-client">Check My Fit Client</a> for details</li>
+ </ul>
 
 
 
