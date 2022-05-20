@@ -35,7 +35,7 @@
 
 <p>Check my Fit is an app where you can share your outfits and have them rated. As a user you can add your outfits, add tags to your outfits, edit and delete your outfits, view other user's outfits, rate other user's outfits hot or not and add and delete comments on a outfit's page.</p>
 
-<h2> :atom_symbol: Getting Started </h2>
+<h1> :atom_symbol: Getting Started </h1>
 
 <h3> :calling: Install Instructions </h3>
 <details open>
