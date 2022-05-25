@@ -71,7 +71,7 @@
 <p></p>
 <h1>:framed_picture: Screenshots</h1>
 
-<details>
+<details open>
 <summary> :bar_chart: ERD</summary><br />
 
 | Description | Screenshot |
